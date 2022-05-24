@@ -1,6 +1,7 @@
 from datetime import datetime
 
 
+
 df = pd.read_csv('split_sensor_int_bed_pressure.csv')
 df[:172800].plot(x="timestamp", y="value", figsize = (15,10))
 
@@ -32,3 +33,16 @@ while i < len(bed) - 1:
 
     print("{0} >> {1}".format(n, [date_time_str_1, date_time_str_2, str(int(duree//3600))+"h-"+str(int((duree%3600)//60))+"min-"+str(int((duree%3600)%60))+"s"]))
     i = i + 1
+    
+        
+ 
+
+## Find timestamp
+
+
+date_time_str = '20-02-26 00:00:00'
+
+date_time_obj = datetime.strptime(date_time_str, '%y-%m-%d %H:%M:%S')
+
+timestamp = datetime.timestamp(date_time_obj)
+print("timestamp =", timestamp)
