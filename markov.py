@@ -14,7 +14,7 @@ def get_characters(kgram, text):
   m = len(kgram)
   list_characters = []
   for i in range(n-m): 
-    if ( text[i:i+m] == kgram):
+    if ( text[i:i+m] == kgram and text[i+m] not in list_characters):
         list_characters.append(text[i+m])
   return list_characters
 
