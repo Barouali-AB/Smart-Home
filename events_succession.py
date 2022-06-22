@@ -1,3 +1,5 @@
+from itertools import groupby
+
 
 df_livingroom = pd.read_csv('split_sensor_int_livingroom_motion.csv')
 df_kitchen = pd.read_csv('split_sensor_int_kitchen_motion.csv')
@@ -95,5 +97,23 @@ for i in range(1,len(l)):
     if ( l[i][0] != l[i-1][0]):
       events += ","
     events += l[i][1]
+    
+    
+txt = events.split(',')
+
+n = len(txt)
+
+for i in range(n):
+  if ( 'c' in txt[i] and ('f' in txt[i] or 'l' in txt[i] )):
+    txt[i] = txt[i].replace('c','')
+  if ( 'b' in txt[i] and ('k' in txt[i] or 'j' in txt[i] or 'g' in txt[i])):
+    txt[i] = txt[i].replace('b','')
+  if ( 'd' in txt[i] and 'h' in txt[i]):
+    txt[i] = txt[i].replace('d','')
+
+  
+event_list = [key for key, _group in groupby(txt)]
+events = ','.join(event_list)
+events
 
 
