@@ -25,14 +25,25 @@ def get_motion_times(df):
       l.append(df['timestamp'][i])
   return l
 
-livingroom_times = get_motion_times(df_livingroom)
-kitchen_times = get_motion_times(df_kitchen)
-corridor_times = get_motion_times(df_corridor)
-bedroom_times = get_motion_times(df_bedroom)
-bathroom_times = get_motion_times(df_bathroom)
-fridge_times = get_motion_times(df_fridge_contact)
-balcon_times = get_motion_times(df_balcon_contact)
-entrance_times = get_motion_times(df_entrance_contact)
+
+def get_start_times(l):
+  start_times = [ l[0] ]
+
+  for i in range(1,len(l)):
+    if (datetime.strptime(l[i], '%Y-%m-%d %H:%M:%S.%f')-datetime.strptime(l[i-1], '%Y-%m-%d %H:%M:%S.%f') > timedelta(seconds=1)):
+      start_times.append(l[i])
+
+  return start_times
+
+
+livingroom_times = get_start_times(get_motion_times(df_livingroom))
+kitchen_times = get_start_times(get_motion_times(df_kitchen))
+corridor_times = get_start_times(get_motion_times(df_corridor))
+bedroom_times = get_start_times(get_motion_times(df_bedroom))
+bathroom_times = get_start_times(get_motion_times(df_bathroom))
+fridge_times = get_start_times(get_motion_times(df_fridge_contact))
+balcon_times = get_start_times(get_motion_times(df_balcon_contact))
+entrance_times = get_start_times(get_motion_times(df_entrance_contact))
 
 
 tuple_list = []
